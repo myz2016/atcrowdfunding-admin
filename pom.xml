@@ -7,13 +7,11 @@
     <packaging>pom</packaging>
     <modules>
         <module>atcrowdfunding-admin-1-webui</module>
-        <module>tcrowdfunding-admin-2-component</module>
+        <module>atcrowdfunding-admin-2-component</module>
         <module>atcrowdfunding-admin-3-common</module>
         <module>atcrowdfunding-admin-4-entity</module>
     </modules>
     <groupId>com.atguigu.crowd.funding</groupId>
     <artifactId>atcrowdfunding-admin-0-parent</artifactId>
     <version>1.0-SNAPSHOT</version>
-
-
 </project>
