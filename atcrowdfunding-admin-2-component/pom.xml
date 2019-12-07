@@ -16,5 +16,10 @@
             <artifactId>atcrowdfunding-admin-3-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+            <!--父类中已经管理了版本，所以这里就可以直接拿过来用，并不需要写版本信息-->
+        </dependency>
     </dependencies>
 </project>
