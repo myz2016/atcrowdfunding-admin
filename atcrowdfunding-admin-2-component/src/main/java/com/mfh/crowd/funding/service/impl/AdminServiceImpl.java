@@ -21,4 +21,11 @@ public class AdminServiceImpl implements AdminService {
     public List<Admin> selectAll() {
         return mapper.selectByExample(new AdminExample());
     }
+
+    @Override
+    public void updateAdmin() {
+        mapper.updateByPrimaryKey(new Admin(308,"happy-nnn","12345","快乐","happy@yeah.net",null));
+        System.out.println(10 / 0);
+        mapper.updateByPrimaryKey(new Admin(309,"sad-lll","12345","难过","happy@yeah.net",null));
+    }
 }

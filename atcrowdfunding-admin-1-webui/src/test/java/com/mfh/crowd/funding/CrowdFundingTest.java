@@ -18,7 +18,7 @@ import java.util.List;
  * @date 2019/12/8 13:05
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(locations = {"classpath:spring-persist-mybatis.xml"})
+@ContextConfiguration(locations = {"classpath:spring-persist-mybatis.xml", "classpath:spring-persist-tx.xml"})
 public class CrowdFundingTest {
     @Autowired
     private DataSource dataSource;
@@ -37,5 +37,10 @@ public class CrowdFundingTest {
         for (Admin admin : list) {
             System.out.println(admin);
         }
+    }
+
+    @Test
+    public void testUpdateAdmin() {
+        adminService.updateAdmin();
     }
 }
