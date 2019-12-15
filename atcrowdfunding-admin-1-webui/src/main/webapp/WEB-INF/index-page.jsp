@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<!DOCTYPE html>
 <html lang="UTF-8">
 <head>
     <meta charset="UTF-8">
@@ -111,6 +112,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="login.html">登录</a></li>
                         <li><a href="reg.html">注册</a></li>
+                        <li><a>|</a></li>
+                        <li><a href="admin/to/login/page.html">管理员登录</a></li>
                     </ul>
                 </div>
             </div>
