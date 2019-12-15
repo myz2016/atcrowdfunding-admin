@@ -11,14 +11,29 @@ import java.util.Map;
  */
 public class CrowdFundingUtils {
 
+    /**
+     * 判断 Map 是否有效
+     * @param map   待验证的 Map
+     * @return  true 表示有效，false 表示无效
+     */
     public static <K, V> boolean mapEffective(Map<K, V> map) {
         return null != map && map.size() > 0;
     }
 
+    /**
+     * 判断 collection 是否有效
+     * @param collection 待验证的集合
+     * @return  true 表示有效，false 表示无效
+     */
     public static <E> boolean collectionEffective(Collection<E> collection) {
         return null != collection && collection.size() > 0;
     }
 
+    /**
+     * 判断 source 是否有效
+     * @param source 明文密码
+     * @return  true 表示有效，false 表示无效
+     */
     public static boolean stringEffective(String source) {
         return null != source && source.length() > 0;
     }

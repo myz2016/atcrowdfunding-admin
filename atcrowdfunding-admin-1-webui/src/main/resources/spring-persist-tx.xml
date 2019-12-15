@@ -23,6 +23,7 @@
             <tx:method name="query*" read-only="true"/>
             <tx:method name="find*" read-only="true"/>
             <tx:method name="count*" read-only="true"/>
+            <tx:method name="login" read-only="true"/>
             <!--给增删改方法配置属性-->
             <!-- propagation：配置传播行为，REQUIRES_NEW表示必须工作在自己新开的事务中，不受其他事务回滚影响 -->
             <!-- rollback-for：配置回滚的异常，默认是根据运行时异常回滚，为了抛出编译时异常也回滚，设置为java.lang.Exception -->
