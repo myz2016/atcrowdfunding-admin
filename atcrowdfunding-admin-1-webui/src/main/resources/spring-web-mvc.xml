@@ -16,4 +16,6 @@
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+
+    <mvc:view-controller path="/admin/to/login/page" view-name="admin-login"/>
 </beans>
