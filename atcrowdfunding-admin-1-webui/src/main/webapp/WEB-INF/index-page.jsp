@@ -7,6 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>❤汇聚点滴的力量，成就非凡的伟业❤</title>
+    <!--所有域路径（包括control路径，如xxx.html）相关的，前面都会默认加入base标签的href的路径，-->
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/"/>
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
