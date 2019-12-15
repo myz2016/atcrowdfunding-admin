@@ -1,0 +1,63 @@
+package com.mfh.crowd.funding.util;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
+import java.util.Map;
+
+/**
+ * @author mfh
+ * @date 2019/12/15 18:10
+ */
+public class CrowdFundingUtils {
+
+    public static <K, V> boolean mapEffective(Map<K, V> map) {
+        return null != map && map.size() > 0;
+    }
+
+    public static <E> boolean collectionEffective(Collection<E> collection) {
+        return null != collection && collection.size() > 0;
+    }
+
+    public static boolean stringEffective(String source) {
+        return null != source && source.length() > 0;
+    }
+
+    /**
+     * md5加密
+     *
+     * @param source 被加密的明文字符串
+     * @return 加密后的字符串
+     */
+    public static String md5(String source) {
+        if (!stringEffective(source)) {
+            throw new RuntimeException("明文不是有效字符串，请核对后再操作！");
+        }
+        final StringBuilder sb = new StringBuilder();
+        // 指定加密算法
+        String algorithm = "MD5";
+        // 准备字符数组
+        char[] character = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+        try {
+            // 执行加密操作的核心对象
+            final MessageDigest digest = MessageDigest.getInstance(algorithm);
+            // 将要加密的明文转成字节数组形式
+            final byte[] inputBytes = source.getBytes();
+            // 执行加密
+            final byte[] outputBytes = digest.digest(inputBytes);
+            // 遍历outputBytes
+            for (byte outputByte : outputBytes) {
+                // 获取低四位值
+                int lowValue = outputByte & 15;
+                // 右移四位和15做与运算得到高四位值
+                int highValue = (outputByte >> 4) & 15;
+                // 以高四位、低四位的值为下标从字符数组中获取对应字符
+                sb.append(character[highValue]).append(character[lowValue]);
+            }
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+        return String.valueOf(sb);
+    }
+
+}
