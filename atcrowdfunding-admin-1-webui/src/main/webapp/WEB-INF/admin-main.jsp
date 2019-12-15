@@ -12,5 +12,8 @@
 </head>
 <body>
 <h1>后台主页面</h1>
+${sessionScope['LOGIN-ADMIN']}
+<%--由于减号（-）在el表达式中有特殊含义，所以如果使用下面的方式就变成了 sessionScope.LOGIN 的值减去 sessionScope.ADMIN 的值-->
+<%--${sessionScope.LOGIN-ADMIN}--%>
 </body>
 </html>
