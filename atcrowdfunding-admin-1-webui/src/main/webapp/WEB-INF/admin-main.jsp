@@ -15,5 +15,6 @@
 ${sessionScope['LOGIN-ADMIN']}
 <%--由于减号（-）在el表达式中有特殊含义，所以如果使用下面的方式就变成了 sessionScope.LOGIN 的值减去 sessionScope.ADMIN 的值-->
 <%--${sessionScope.LOGIN-ADMIN}--%>
+<a href="/admin/logout.html">退出</a>
 </body>
 </html>

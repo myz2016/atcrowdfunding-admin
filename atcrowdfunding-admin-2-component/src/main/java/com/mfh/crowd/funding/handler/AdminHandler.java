@@ -21,6 +21,11 @@ public class AdminHandler {
 
     private AdminService adminService;
 
+    @RequestMapping("/admin/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/index.html";
+    }
     @RequestMapping("/admin/do/login")
     public String doLogin(@RequestParam("loginAcct") String loginAcct, @RequestParam("userPswd") String userPswd, Model model, HttpSession session) {
         Admin admin = adminService.login(loginAcct, userPswd);
