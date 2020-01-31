@@ -27,4 +27,17 @@
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
 
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--只要根 springMvc 有关，全部被拦截-->
+            <mvc:mapping path="/**"/>
+            <!-- 设置要拦截的路径中的例外，也就是不拦截的路径 -->
+            <mvc:exclude-mapping path="/admin/to/login/page.html"/>
+            <mvc:exclude-mapping path="/admin/do/login.html"/>
+            <!--拦截器的 bean-->
+            <bean class="com.mfh.crowd.funding.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
