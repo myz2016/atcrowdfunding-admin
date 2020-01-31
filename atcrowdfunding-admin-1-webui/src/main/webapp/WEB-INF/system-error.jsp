@@ -34,7 +34,16 @@
 </nav>
 
 <div class="container">
+    <script src="/jquery/jquery-2.1.1.min.js"></script>
+    <script type="application/javascript" charset="utf-8">
+        $(function () {
+            $("#back").click(function () {
+                window.history.back();
+            });
+        });
+    </script>
     <h1>${requestScope.exception.message}</h1>
+    <button id="back" class="btn btn-lg btn-success btn-block">后退</button>
 </div>
 </body>
 </html>
