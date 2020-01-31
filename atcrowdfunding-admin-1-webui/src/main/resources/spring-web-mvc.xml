@@ -8,7 +8,7 @@
         http://www.springframework.org/schema/mvc
         https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:component-scan base-package="com.mfh.crowd.funding.handler"/>
+    <context:component-scan base-package="com.mfh.crowd.funding.handler,com.mfh.crowd.funding.exception"/>
     <!-- 配置SpringMVC标配：注解驱动 -->
     <mvc:annotation-driven/>
     <!-- 配置视图解析器 -->
