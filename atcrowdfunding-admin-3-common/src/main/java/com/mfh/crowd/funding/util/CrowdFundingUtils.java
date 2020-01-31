@@ -1,5 +1,7 @@
 package com.mfh.crowd.funding.util;
 
+import com.mfh.crowd.funding.constants.CrowdFundingConstant;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -46,7 +48,7 @@ public class CrowdFundingUtils {
      */
     public static String md5(String source) {
         if (!stringEffective(source)) {
-            throw new RuntimeException("明文不是有效字符串，请核对后再操作！");
+            throw new RuntimeException(CrowdFundingConstant.MESSAGE_CODE_INVALID);
         }
         final StringBuilder sb = new StringBuilder();
         // 指定加密算法

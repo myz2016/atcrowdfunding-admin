@@ -1,5 +1,6 @@
 package com.mfh.crowd.funding.handler;
 
+import com.mfh.crowd.funding.constants.CrowdFundingConstant;
 import com.mfh.crowd.funding.entity.Admin;
 import com.mfh.crowd.funding.service.api.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +25,10 @@ public class AdminHandler {
     public String doLogin(@RequestParam("loginAcct") String loginAcct, @RequestParam("userPswd") String userPswd, Model model, HttpSession session) {
         Admin admin = adminService.login(loginAcct, userPswd);
         if (null != admin) {
-            session.setAttribute("LOGIN-ADMIN", admin);
+            session.setAttribute(CrowdFundingConstant.ATTR_NAME_LOGIN_ADMIN, admin);
             return "admin-main";
         }
-        model.addAttribute("MESSAGE", "用户名或密码错误，请核对后重新登录！");
+        model.addAttribute(CrowdFundingConstant.ATTR_NAME_MESSAGE, CrowdFundingConstant.MESSAGE_LOGIN_FAILED);
         return "admin-login";
     }
     @RequestMapping("/admin/get/all")
