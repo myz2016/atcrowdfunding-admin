@@ -31,7 +31,7 @@ public class AdminHandler {
         Admin admin = adminService.login(loginAcct, userPswd);
         if (null != admin) {
             session.setAttribute(CrowdFundingConstant.ATTR_NAME_LOGIN_ADMIN, admin);
-            return "admin-main";
+            return "redirect:/admin/to/main/page.html";
         }
         model.addAttribute(CrowdFundingConstant.ATTR_NAME_MESSAGE, CrowdFundingConstant.MESSAGE_LOGIN_FAILED);
         return "admin-login";
