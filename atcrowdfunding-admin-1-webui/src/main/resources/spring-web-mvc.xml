@@ -36,6 +36,7 @@
             <!-- 设置要拦截的路径中的例外，也就是不拦截的路径 -->
             <mvc:exclude-mapping path="/admin/to/login/page.html"/>
             <mvc:exclude-mapping path="/admin/do/login.html"/>
+            <mvc:exclude-mapping path="/index.html"/>
             <!--拦截器的 bean-->
             <bean class="com.mfh.crowd.funding.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
