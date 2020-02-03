@@ -21,6 +21,20 @@
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <!--配置Mapper配置文件所在位置-->
         <property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml"/>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageHelper">
+                    <property name="properties">
+                        <props>
+                            <prop key="dialect">mysql</prop>
+                            <!--配置自动修正页码-->
+                            <!--pageNo 有效范围：1~总页数-->
+                            <prop key="reasonable">true</prop>
+                        </props>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
     <!--配置MyBatis扫描器-->
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
