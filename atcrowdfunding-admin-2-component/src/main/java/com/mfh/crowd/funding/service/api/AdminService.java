@@ -1,5 +1,6 @@
 package com.mfh.crowd.funding.service.api;
 
+import com.github.pagehelper.PageInfo;
 import com.mfh.crowd.funding.entity.Admin;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface AdminService {
      * @return  匹配用户名返回admin对象，不匹配用户名返回null
      */
     Admin login(String loginAcct, String userPswd);
+
+    PageInfo<Admin> queryForKeywordSearch(Integer pageNum, Integer pageSize, String keyword);
 }

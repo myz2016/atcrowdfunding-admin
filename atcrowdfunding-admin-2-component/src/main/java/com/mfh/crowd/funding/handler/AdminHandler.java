@@ -1,5 +1,6 @@
 package com.mfh.crowd.funding.handler;
 
+import com.github.pagehelper.PageInfo;
 import com.mfh.crowd.funding.constants.CrowdFundingConstant;
 import com.mfh.crowd.funding.entity.Admin;
 import com.mfh.crowd.funding.service.api.AdminService;
@@ -21,6 +22,19 @@ public class AdminHandler {
 
     private AdminService adminService;
 
+    @RequestMapping("/admin/query/for/search")
+    public String queryForSearch(
+            @RequestParam(value = "pageNum", defaultValue = "1")
+            Integer pageNum,
+            @RequestParam(value = "pageSize", defaultValue = "5")
+            Integer pageSize,
+            @RequestParam(value = "keyword", defaultValue = "")
+            String keyword,
+            Model model) {
+        PageInfo<Admin> pageInfo = adminService.queryForKeywordSearch(pageNum, pageSize, keyword);
+        model.addAttribute(CrowdFundingConstant.ATTR_NAME_PAGE_INFO, pageInfo);
+        return "admin-page";
+    }
     @RequestMapping("/admin/logout")
     public String logout(HttpSession session) {
         session.invalidate();

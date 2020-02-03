@@ -1,5 +1,7 @@
 package com.mfh.crowd.funding.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mfh.crowd.funding.entity.Admin;
 import com.mfh.crowd.funding.entity.AdminExample;
 import com.mfh.crowd.funding.mapper.AdminMapper;
@@ -17,7 +19,6 @@ import java.util.Objects;
  */
 @Service
 public class AdminServiceImpl implements AdminService {
-    @Autowired
     private AdminMapper mapper;
 
     @Override
@@ -54,5 +55,21 @@ public class AdminServiceImpl implements AdminService {
             return null;
         }
         return admin;
+    }
+
+    @Override
+    public PageInfo<Admin> queryForKeywordSearch(Integer pageNum, Integer pageSize, String keyword) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Admin> admins = mapper.selectAdminListByKeyword(keyword);
+        return new PageInfo<>(admins);
+    }
+
+    public AdminMapper getMapper() {
+        return mapper;
+    }
+
+    @Autowired
+    public void setMapper(AdminMapper mapper) {
+        this.mapper = mapper;
     }
 }

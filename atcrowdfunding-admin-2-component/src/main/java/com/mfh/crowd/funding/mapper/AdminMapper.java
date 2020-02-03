@@ -2,8 +2,9 @@ package com.mfh.crowd.funding.mapper;
 
 import com.mfh.crowd.funding.entity.Admin;
 import com.mfh.crowd.funding.entity.AdminExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AdminMapper {
     int countByExample(AdminExample example);
@@ -27,4 +28,6 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    List<Admin> selectAdminListByKeyword(String keyword);
 }
