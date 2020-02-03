@@ -1,6 +1,7 @@
 package com.mfh.crowd.funding;
 
 import com.mfh.crowd.funding.entity.Admin;
+import com.mfh.crowd.funding.mapper.AdminMapper;
 import com.mfh.crowd.funding.service.api.AdminService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,19 @@ public class CrowdFundingTest {
 
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private AdminMapper adminMapper;
+
+    @Test
+    public void testSelectAdminListByKeyword() {
+        String keyword = "";
+        List<Admin> admins = adminMapper.selectAdminListByKeyword(keyword);
+        for (Admin admin : admins) {
+            System.out.println(admin);
+        }
+
+    }
     @Test
     public void testConnection() throws SQLException {
         final Connection connection = dataSource.getConnection();
