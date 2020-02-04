@@ -118,7 +118,7 @@
                             <tfoot>
                             <tr>
                                 <td colspan="6" align="center">
-                                    opts.callback(current_page, this);<div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
+                                    <div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
                                 </td>
                             </tr>
                             </tfoot>
