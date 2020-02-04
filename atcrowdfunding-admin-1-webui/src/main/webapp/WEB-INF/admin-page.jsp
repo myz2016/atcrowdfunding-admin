@@ -3,6 +3,46 @@
 <!DOCTYPE html>
 <html lang="UTF-8">
 <%@ include file="/WEB-INF/include-head.jsp" %>
+<link rel="stylesheet" href="css/pagination.css">
+<script type="text/javascript" src="jquery/jquery.pagination.js"></script>
+<script type="text/javascript">
+    $(function () {
+        // 对分页导航条显示进行初始化
+        initPagination();
+    });
+
+    // 声明函数封装导航条初始化操作
+    function initPagination() {
+        // 声明变量存储总记录数
+        var totalRecord = ${requestScope['PAGE-INFO'].total};
+        // 声明变量存储分页导航条显示时的属性设置
+        var paginationProperties = {
+            num_edge_entries: 3,			//边缘页数
+            num_display_entries: 5,		//主体页数
+            callback: pageselectCallback,	//回调函数
+            items_per_page: ${requestScope['PAGE-INFO'].pageSize},	//每页显示数据数量，就是pageSize
+            current_page: ${requestScope['PAGE-INFO'].pageNum - 1},//当前页页码
+            prev_text: "上一页",			//上一页文本
+            next_text: "下一页"			//下一页文本
+        };
+
+        // 显示分页导航条
+        $("#Pagination").pagination(totalRecord, paginationProperties);
+    }
+
+    // 在每一次点击“上一页”、“下一页”、“页码”时执行这个函数跳转页面
+    function pageselectCallback(pageIndex, jq) {
+
+        // pageIndex从0开始，pageNum从1开始
+        var pageNum = pageIndex + 1;
+
+        // 跳转页面
+        window.location.href = "admin/query/for/search.html?pageNum=" + pageNum;
+
+        return false;
+    }
+
+</script>
 <body>
 <%@ include file="/WEB-INF/include-nav.jsp" %>
 <div class="container-fluid">
@@ -53,6 +93,7 @@
                             <c:if test="${!empty requestScope['PAGE-INFO'].list}">
                                 <c:forEach items="${requestScope['PAGE-INFO'].list}" var="admin" varStatus="myStatus">
                                     <tr>
+                                            <%--从0开始用count,从1开始用index--%>
                                         <td>${myStatus.count}</td>
                                         <td><input type="checkbox"></td>
                                         <td>${admin.loginAcct}</td>
@@ -77,18 +118,9 @@
                             <tfoot>
                             <tr>
                                 <td colspan="6" align="center">
-                                    <ul class="pagination">
-                                        <li class="disabled"><a href="#">上一页</a></li>
-                                        <li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li><a href="#">下一页</a></li>
-                                    </ul>
+                                    opts.callback(current_page, this);<div id="Pagination" class="pagination"><!-- 这里显示分页 --></div>
                                 </td>
                             </tr>
-
                             </tfoot>
                         </table>
                     </div>
