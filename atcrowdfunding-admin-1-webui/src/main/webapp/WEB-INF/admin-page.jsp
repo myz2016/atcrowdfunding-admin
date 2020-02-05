@@ -9,6 +9,14 @@
     $(function () {
         // 对分页导航条显示进行初始化
         initPagination();
+        $("#summaryBox").click(function () {
+            // 获取当前#summaryBox的勾选状态
+            // this代表当前多选框对象（DOM对象）
+            var checkedStatus = this.checked;
+            // checked属性为true时表示被勾选，为false时表示没有被勾选
+            // 使用checkStatus设置.itemBox的状态
+            $(".itemBox").prop("checked", checkedStatus);
+        });
     });
 
     // 声明函数封装导航条初始化操作
@@ -73,7 +81,7 @@
                             <thead>
                             <tr>
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input id="summaryBox" type="checkbox"></th>
                                 <th>账号</th>
                                 <th>名称</th>
                                 <th>邮箱地址</th>
@@ -91,7 +99,7 @@
                                     <tr>
                                             <%--从0开始用count,从1开始用index--%>
                                         <td>${myStatus.count}</td>
-                                        <td><input type="checkbox"></td>
+                                        <td><input class="itemBox" type="checkbox"></td>
                                         <td>${admin.loginAcct}</td>
                                         <td>${admin.userName}</td>
                                         <td>${admin.email}</td>
