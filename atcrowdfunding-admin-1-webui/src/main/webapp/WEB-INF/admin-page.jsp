@@ -21,10 +21,27 @@
         // 批量删除
         $("#batchRemoveBtn").click(function () {
             var adminIdArr = [];
+            var loginAccArr = [];
             $(".itemBox:checked").each(function () {
                 var $this = $(this);
                 adminIdArr.push($this.attr('adminId'));
+                loginAccArr.push($this.parent("td").next().text());
             });
+
+            if (adminIdArr.length === 0) {
+                alert("请勾选您要删除的记录！");
+                return;
+            }
+
+            var confirmStatus = confirm("您确认要删除" + loginAccArr + "吗？操作不可逆，请谨慎决定！");
+            if (!confirmStatus) {
+                return;
+            }
+            // 将 JSON 数组转成 JSON 字符串
+            // var a = [1,2,3,4];                   // 数组类型
+            // var b = "[1,2,3,4]";                 // 字符串类型
+            // var c = {"userName": "tom"};         // 对象类型
+            // var d = "{\"userName\": \"tom\"}";   // 字符串类型
             var adminIds = JSON.stringify(adminIdArr);
             $.ajax({
                 // 服务器端接收请求的 url 地址
@@ -39,11 +56,15 @@
                 "dataType":"json",
                 // 服务器处理请求成功后执行的函数，响应体以参数形式传入当前函数
                 "success": function (resp) {
-                    alert(resp);
+                    if (resp.result === "SUCCESS") {
+                        window.location.href = "admin/query/for/search.html?pageNum=${requestScope['PAGE-INFO'].pageNum}&keyword=${param.keyword}";
+                    } else {
+                        alert(resp.message);
+                    }
                 },
                 // 服务器处理请求失败后执行的函数，响应体以参数形式传入当前函数
                 "error": function (resp) {
-                    alert(resp);
+                    alert(resp.message);
                 }
             });
         });
@@ -57,12 +78,12 @@
         // 声明变量存储分页导航条显示时的属性设置
         var paginationProperties = {
             num_edge_entries: 3,			//边缘页数
-            num_display_entries: 5,		//主体页数
+            num_display_entries: 5,		    //主体页数
             callback: pageSelectCallback,	//回调函数
             items_per_page: ${requestScope['PAGE-INFO'].pageSize},	//每页显示数据数量，就是pageSize
-            current_page: ${requestScope['PAGE-INFO'].pageNum - 1},//当前页页码
-            prev_text: "上一页",			//上一页文本
-            next_text: "下一页"			//下一页文本
+            current_page: ${requestScope['PAGE-INFO'].pageNum - 1}, //当前页页码
+            prev_text: "上一页",			    //上一页文本
+            next_text: "下一页"			    //下一页文本
         };
 
         // 显示分页导航条

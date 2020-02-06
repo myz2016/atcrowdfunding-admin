@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -25,10 +26,17 @@ public class AdminHandler {
 
     private AdminService adminService;
 
+    /**
+     * 批量删除
+     * 将当前handler方法的返回值作为响应体返回，不经过视图解析器
+     * @param adminId
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/admin/batch/remove")
-    public ResultEntity batchRemove(@RequestBody List<Integer> adminId) {
+    public ResultEntity<String> batchRemove(@RequestBody List<Integer> adminId, HttpServletRequest request) {
         try {
+            System.out.println(10 / 0);
             adminService.batchRemove(adminId);
             return ResultEntity.successWithoutData();
         } catch (Exception e) {
