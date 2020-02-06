@@ -17,6 +17,37 @@
             // 使用checkStatus设置.itemBox的状态
             $(".itemBox").prop("checked", checkedStatus);
         });
+
+        // 批量删除
+        $("#batchRemoveBtn").click(function () {
+            var adminIdArr = [];
+            $(".itemBox:checked").each(function () {
+                var $this = $(this);
+                adminIdArr.push($this.attr('adminId'));
+            });
+            var adminIds = JSON.stringify(adminIdArr);
+            $.ajax({
+                // 服务器端接收请求的 url 地址
+               "url":"/admin/batch/remove.json",
+                // 设置请求方式为 post
+                "type":"post",
+                // 设置请求体内容类型，告诉服务器当前请求体发送的是JSON数据
+                "contentType":"application/json;charset=UTF-8",
+                // 请求体真正要发送给服务器的数据
+                "data":adminIds,
+                // 把服务器端返回的数据当做 json 格式解析
+                "dataType":"json",
+                // 服务器处理请求成功后执行的函数，响应体以参数形式传入当前函数
+                "success": function (resp) {
+                    alert(resp);
+                },
+                // 服务器处理请求失败后执行的函数，响应体以参数形式传入当前函数
+                "error": function (resp) {
+                    alert(resp);
+                }
+            });
+        });
+
     });
 
     // 声明函数封装导航条初始化操作
@@ -68,9 +99,7 @@
                         </div>
                         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询 </button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i
-                            class=" glyphicon glyphicon-remove"></i> 删除
-                    </button>
+                    <button id="batchRemoveBtn" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
                     <button type="button" class="btn btn-primary" style="float:right;"
                             onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
                     </button>
@@ -99,7 +128,7 @@
                                     <tr>
                                             <%--从0开始用count,从1开始用index--%>
                                         <td>${myStatus.count}</td>
-                                        <td><input class="itemBox" type="checkbox"></td>
+                                        <td><input adminId="${admin.id}" class="itemBox" type="checkbox"></td>
                                         <td>${admin.loginAcct}</td>
                                         <td>${admin.userName}</td>
                                         <td>${admin.email}</td>
