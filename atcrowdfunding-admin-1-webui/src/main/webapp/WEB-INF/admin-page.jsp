@@ -6,6 +6,34 @@
 <link rel="stylesheet" href="css/pagination.css">
 <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
 <script type="text/javascript">
+    function doBatchRemove(adminIdArr) {
+        var adminIds = JSON.stringify(adminIdArr);
+        $.ajax({
+            // 服务器端接收请求的 url 地址
+            "url": "/admin/batch/remove.json",
+            // 设置请求方式为 post
+            "type": "post",
+            // 设置请求体内容类型，告诉服务器当前请求体发送的是JSON数据
+            "contentType": "application/json;charset=UTF-8",
+            // 请求体真正要发送给服务器的数据
+            "data": adminIds,
+            // 把服务器端返回的数据当做 json 格式解析
+            "dataType": "json",
+            // 服务器处理请求成功后执行的函数，响应体以参数形式传入当前函数
+            "success": function (resp) {
+                if (resp.result === "SUCCESS") {
+                    window.location.href = "admin/query/for/search.html?pageNum=${requestScope['PAGE-INFO'].pageNum}&keyword=${param.keyword}";
+                } else {
+                    alert(resp.message);
+                }
+            },
+            // 服务器处理请求失败后执行的函数，响应体以参数形式传入当前函数
+            "error": function (resp) {
+                alert(resp.message);
+            }
+        });
+    }
+
     $(function () {
         // 对分页导航条显示进行初始化
         initPagination();
@@ -42,31 +70,21 @@
             // var b = "[1,2,3,4]";                 // 字符串类型
             // var c = {"userName": "tom"};         // 对象类型
             // var d = "{\"userName\": \"tom\"}";   // 字符串类型
-            var adminIds = JSON.stringify(adminIdArr);
-            $.ajax({
-                // 服务器端接收请求的 url 地址
-               "url":"/admin/batch/remove.json",
-                // 设置请求方式为 post
-                "type":"post",
-                // 设置请求体内容类型，告诉服务器当前请求体发送的是JSON数据
-                "contentType":"application/json;charset=UTF-8",
-                // 请求体真正要发送给服务器的数据
-                "data":adminIds,
-                // 把服务器端返回的数据当做 json 格式解析
-                "dataType":"json",
-                // 服务器处理请求成功后执行的函数，响应体以参数形式传入当前函数
-                "success": function (resp) {
-                    if (resp.result === "SUCCESS") {
-                        window.location.href = "admin/query/for/search.html?pageNum=${requestScope['PAGE-INFO'].pageNum}&keyword=${param.keyword}";
-                    } else {
-                        alert(resp.message);
-                    }
-                },
-                // 服务器处理请求失败后执行的函数，响应体以参数形式传入当前函数
-                "error": function (resp) {
-                    alert(resp.message);
-                }
-            });
+            doBatchRemove(adminIdArr);
+        });
+
+        // 单条删除
+        $(".uniqueRemoveBtn").click(function () {
+            var $this = $(this);
+            var adminId = $this.attr("adminId");
+            var loginAccArr = $this.parent().parents("tr").children("td:eq(2)").text();
+            var confirmStatus = confirm("您确认要删除" + loginAccArr + "吗？操作不可逆，请谨慎决定！");
+            if (!confirmStatus) {
+                return;
+            }
+            var adminIdArr = [];
+            adminIdArr.push(adminId);
+            doBatchRemove(adminIdArr);
         });
 
     });
@@ -160,7 +178,7 @@
                                             <button type="button" class="btn btn-primary btn-xs">
                                                 <i class=" glyphicon glyphicon-pencil"></i>
                                             </button>
-                                            <button type="button" class="btn btn-danger btn-xs">
+                                            <button adminId="${admin.id}" id="singleRemove-${myStatus.index}" type="button" class="btn btn-danger btn-xs uniqueRemoveBtn">
                                                 <i class=" glyphicon glyphicon-remove"></i>
                                             </button>
                                         </td>

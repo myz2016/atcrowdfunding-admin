@@ -36,7 +36,6 @@ public class AdminHandler {
     @RequestMapping("/admin/batch/remove")
     public ResultEntity<String> batchRemove(@RequestBody List<Integer> adminId, HttpServletRequest request) {
         try {
-            System.out.println(10 / 0);
             adminService.batchRemove(adminId);
             return ResultEntity.successWithoutData();
         } catch (Exception e) {
