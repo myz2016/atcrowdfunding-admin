@@ -2,12 +2,14 @@ package com.mfh.crowd.funding.service.impl;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.mfh.crowd.funding.constants.CrowdFundingConstant;
 import com.mfh.crowd.funding.entity.Admin;
 import com.mfh.crowd.funding.entity.AdminExample;
 import com.mfh.crowd.funding.mapper.AdminMapper;
 import com.mfh.crowd.funding.service.api.AdminService;
 import com.mfh.crowd.funding.util.CrowdFundingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -83,6 +85,27 @@ public class AdminServiceImpl implements AdminService {
         mapper.deleteByExample(example);
     }
 
+    @Override
+    public void saveAdmin(Admin admin) {
+        admin.setUserPswd(this.encrypt(admin.getUserPswd()));
+        try {
+            mapper.insert(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e instanceof DuplicateKeyException) {
+                throw new RuntimeException(CrowdFundingConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+    }
+
+    /**
+     * 加密
+     * @param password 加密前的密码
+     * @return 加密后的密码
+     */
+    private String encrypt(String password) {
+        return CrowdFundingUtils.md5(password);
+    }
     public AdminMapper getMapper() {
         return mapper;
     }

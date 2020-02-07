@@ -14,4 +14,5 @@ public class CrowdFundingConstant {
 
     public static final String MESSAGE_ACCESS_DENIED = "请登录后在操作!";
 
+    public static final String MESSAGE_LOGIN_ACCT_ALREADY_IN_USE = "登录账号被占用，请重新设定！";
 }

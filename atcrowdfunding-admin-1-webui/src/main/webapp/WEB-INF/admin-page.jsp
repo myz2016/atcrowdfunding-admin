@@ -91,9 +91,7 @@
                         <button type="submit" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询 </button>
                     </form>
                     <button id="batchRemoveBtn" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;"
-                            onclick="window.location.href='add.html'"><i class="glyphicon glyphicon-plus"></i> 新增
-                    </button>
+                    <a href="/admin/to/add/page.html" class="btn btn-primary" style="float:right;"><i class="glyphicon glyphicon-plus"></i> 新增</a>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">

@@ -26,6 +26,11 @@ public class AdminHandler {
 
     private AdminService adminService;
 
+    @RequestMapping("/admin/save")
+    public String save(Admin admin) {
+        adminService.saveAdmin(admin);
+        return "redirect:/admin/query/for/search.html?pageNum=" + Integer.MAX_VALUE;
+    }
     /**
      * 批量删除
      * 将当前handler方法的返回值作为响应体返回，不经过视图解析器
