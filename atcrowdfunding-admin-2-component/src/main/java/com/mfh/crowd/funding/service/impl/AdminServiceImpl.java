@@ -28,12 +28,6 @@ public class AdminServiceImpl implements AdminService {
         return mapper.selectByExample(new AdminExample());
     }
 
-    @Override
-    public void updateAdmin() {
-        mapper.updateByPrimaryKey(new Admin(308, "happy", "12345", "快乐", "happy@yeah.net", null));
-        System.out.println(10 / 0);
-        mapper.updateByPrimaryKey(new Admin(309, "sad", "12345", "难过", "happy@yeah.net", null));
-    }
 
     @Override
     public Admin login(String loginAcct, String userPswd) {
@@ -87,7 +81,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void saveAdmin(Admin admin) {
-        admin.setUserPswd(this.encrypt(admin.getUserPswd()));
+        this.encrypt(admin);
         try {
             mapper.insert(admin);
         } catch (Exception e) {
@@ -98,6 +92,20 @@ public class AdminServiceImpl implements AdminService {
         }
     }
 
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        return mapper.selectByPrimaryKey(adminId);
+    }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+        this.encrypt(admin);
+        mapper.updateByPrimaryKey(admin);
+    }
+
+    private void encrypt(Admin admin) {
+        admin.setUserPswd(this.encrypt(admin.getUserPswd()));
+    }
     /**
      * 加密
      * @param password 加密前的密码

@@ -125,9 +125,7 @@
                                             <button type="button" class="btn btn-success btn-xs">
                                                 <i class=" glyphicon glyphicon-check"></i>
                                             </button>
-                                            <button type="button" class="btn btn-primary btn-xs">
-                                                <i class=" glyphicon glyphicon-pencil"></i>
-                                            </button>
+                                            <a href="admin/to/edit/page.html?adminId=${admin.id}&pageNum=${param.pageNum}" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></a>
                                             <button adminId="${admin.id}" id="singleRemove-${myStatus.index}" type="button" class="btn btn-danger btn-xs uniqueRemoveBtn">
                                                 <i class=" glyphicon glyphicon-remove"></i>
                                             </button>

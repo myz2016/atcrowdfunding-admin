@@ -12,8 +12,6 @@ import java.util.List;
 public interface AdminService {
     List<Admin> selectAll();
 
-    void updateAdmin();
-
     /**
      * 登录的业务处理逻辑
      * @param loginAcct 用户名
@@ -27,4 +25,8 @@ public interface AdminService {
     void batchRemove(List<Integer> adminId);
 
     void saveAdmin(Admin admin);
+
+    Admin getAdminById(Integer adminId);
+
+    void updateAdmin(Admin admin);
 }

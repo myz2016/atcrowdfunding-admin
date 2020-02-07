@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -26,6 +25,17 @@ public class AdminHandler {
 
     private AdminService adminService;
 
+    @RequestMapping("/admin/update")
+    public String updateAdmin(Admin admin, @RequestParam("pageNum") String pageNum) {
+        adminService.updateAdmin(admin);
+        return "redirect:/admin/query/for/search.html?pageNum=" + pageNum;
+    }
+    @RequestMapping("/admin/to/edit/page")
+    public String toEditPage(@RequestParam("adminId") Integer adminId, Model model) {
+        Admin admin = adminService.getAdminById(adminId);
+        model.addAttribute("admin", admin);
+        return "admin-edit";
+    }
     @RequestMapping("/admin/save")
     public String save(Admin admin) {
         adminService.saveAdmin(admin);
@@ -39,7 +49,7 @@ public class AdminHandler {
      */
     @ResponseBody
     @RequestMapping("/admin/batch/remove")
-    public ResultEntity<String> batchRemove(@RequestBody List<Integer> adminId, HttpServletRequest request) {
+    public ResultEntity<String> batchRemove(@RequestBody List<Integer> adminId) {
         try {
             adminService.batchRemove(adminId);
             return ResultEntity.successWithoutData();
