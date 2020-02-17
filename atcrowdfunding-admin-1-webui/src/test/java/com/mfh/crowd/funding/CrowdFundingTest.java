@@ -1,7 +1,9 @@
 package com.mfh.crowd.funding;
 
 import com.mfh.crowd.funding.entity.Admin;
+import com.mfh.crowd.funding.entity.Role;
 import com.mfh.crowd.funding.mapper.AdminMapper;
+import com.mfh.crowd.funding.mapper.RoleMapper;
 import com.mfh.crowd.funding.service.api.AdminService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +32,14 @@ public class CrowdFundingTest {
     @Autowired
     private AdminMapper adminMapper;
 
+    @Autowired
+    private RoleMapper roleMapper;
+    @Test
+    public void saveRoleBatch() {
+        for (int i = 0; i < 100; i++) {
+            roleMapper.insert(new Role(i + 10, "roleName" + i));
+        }
+    }
     @Test
     public void testSelectAdminListByKeyword() {
         String keyword = "";
