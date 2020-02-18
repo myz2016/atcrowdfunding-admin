@@ -48,6 +48,17 @@ public class RoleHandler {
         }
         return ResultEntity.successWithoutData();
     }
+
+    @ResponseBody
+    @RequestMapping("/role/save/role")
+    public ResultEntity<String> saveRole(@RequestParam("roleName") String roleName) {
+        try {
+            roleService.saveRole(roleName);
+        } catch (Exception e) {
+            return ResultEntity.failed(null, e.getMessage());
+        }
+        return ResultEntity.successWithoutData();
+    }
     public RoleService getRoleService() {
         return roleService;
     }

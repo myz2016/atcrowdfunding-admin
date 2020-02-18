@@ -52,4 +52,9 @@ public class RoleServiceImpl implements RoleService {
         criteria.andIdIn(roleIdList);
         mapper.deleteByExample(example);
     }
+
+    @Override
+    public void saveRole(String roleName) {
+        mapper.insert(new Role(null, roleName));
+    }
 }

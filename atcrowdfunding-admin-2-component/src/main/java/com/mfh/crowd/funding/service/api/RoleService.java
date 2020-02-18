@@ -15,4 +15,6 @@ public interface RoleService {
     List<Role> getRoleListByRoleId(List<Integer> roleIdList);
 
     void batchRemoveByRoleId(List<Integer> roleIdList);
+
+    void saveRole(String roleName);
 }

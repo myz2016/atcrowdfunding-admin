@@ -67,6 +67,39 @@
             window.roleIdArr.push($(this).attr("roleId"));
             showRemoveConfirmModal();
         });
+
+        $("#addBtn").click(function () {
+            $("#addModal").modal("show");
+        });
+
+        $("#addModalBtn").click(function () {
+            var roleName = $("#roleNameInput").val();
+            if (roleName) {
+                $.ajax({
+                    "url": "role/save/role.json",
+                    "type": "post",
+                    "data": {"roleName": $("#roleNameInput").val()},
+                    "dataType": "json",
+                    "success": function (response) {
+                        if (response.result === "SUCCESS") {
+                            layer.msg("添加成功！");
+                            window.pageNum = 9999999;
+                            showPage();
+                        }
+                        if (response.result === "FAILED") {
+                            layer.msg(response.message);
+                        }
+                        $("#addModal").modal("hide");
+                    },
+                    "error": function (response) {
+                        layer.msg(response.message);
+                    }
+                });
+            } else {
+                layer.msg("请输入角色名称！");
+            }
+
+        });
     });
 </script>
 <body>
@@ -90,7 +123,7 @@
                         <button id="search" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
                     <button id="batchRemoveBtn" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 批量删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <button id="addBtn" type="button" class="btn btn-primary" style="float:right;"><i class="glyphicon glyphicon-plus"></i> 新增</button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -120,5 +153,6 @@
     </div>
 </div>
 <%@include file="/WEB-INF/include-modal-role-confirm.jsp"%>
+<%@include file="/WEB-INF/include-moda-role-add.jsp"%>
 </body>
 </html>
