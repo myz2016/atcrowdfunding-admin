@@ -57,4 +57,9 @@ public class RoleServiceImpl implements RoleService {
     public void saveRole(String roleName) {
         mapper.insert(new Role(null, roleName));
     }
+
+    @Override
+    public void updateRole(Integer roleId, String roleName) {
+        mapper.updateByPrimaryKey(new Role(roleId, roleName));
+    }
 }

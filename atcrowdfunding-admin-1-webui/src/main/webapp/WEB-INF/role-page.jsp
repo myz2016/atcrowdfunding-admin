@@ -83,7 +83,7 @@
                     "success": function (response) {
                         if (response.result === "SUCCESS") {
                             layer.msg("添加成功！");
-                            window.pageNum = 9999999;
+                            window.pageNum = 0x7fffffff;
                             showPage();
                         }
                         if (response.result === "FAILED") {
@@ -100,6 +100,37 @@
                 layer.msg("请输入角色名称！");
             }
 
+        });
+
+        $("#roleTableBody").on("click", ".editBtn", function () {
+            window.roleId = $(this).attr("roleId");
+            $("#editModal").modal("show");
+            $("#roleNameInputEdit").val($(this).parents("tr").children("td:eq(2)").text());
+        });
+
+        $("#editModalBtn").click(function () {
+            $.ajax({
+               "url":"role/update/role.json",
+               "type":"post",
+               "data":{
+                   "roleId":window.roleId,
+                   "roleName":$("#roleNameInputEdit").val()
+               },
+                "dataType":"json",
+                "success": function (response) {
+                    if (response.result === "SUCCESS") {
+                        layer.msg("更新成功！");
+                        showPage();
+                    }
+                    if (response.result === "FAILED") {
+                        layer.msg(response.message);
+                    }
+                    $("#editModal").modal("hide");
+                },
+                "error": function (response) {
+                    layer.msg(response.message);
+                }
+            });
         });
     });
 </script>
@@ -155,5 +186,6 @@
 </div>
 <%@include file="/WEB-INF/include-modal-role-confirm.jsp"%>
 <%@include file="/WEB-INF/include-moda-role-add.jsp"%>
+<%@include file="/WEB-INF/include-modal-role-edit.jsp"%>
 </body>
 </html>
