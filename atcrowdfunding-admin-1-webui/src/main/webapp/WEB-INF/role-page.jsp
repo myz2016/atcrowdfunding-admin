@@ -20,6 +20,13 @@
             var checkedStatus = this.checked;
             $(".itemClass").prop("checked", checkedStatus);
         });
+        $("#batchRemoveBtn").click(function () {
+            var checkedLength = $(".itemClass:checked").length;
+            if (checkedLength == 0) {
+                layer.msg("请勾选要删除的数据！");
+                return;
+            }
+        });
     });
 </script>
 <body>
@@ -42,7 +49,7 @@
                         </div>
                         <button id="search" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
-                    <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
+                    <button id="batchRemoveBtn" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 批量删除</button>
                     <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='form.html'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
                     <br>
                     <hr style="clear:both;">
