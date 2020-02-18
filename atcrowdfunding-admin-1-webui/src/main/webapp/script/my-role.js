@@ -59,7 +59,7 @@ function generateTableBody(pageInfo) {
     }
     list.forEach(function (data, index) {
         var removeBtn = "<button type='button' class='btn btn-danger btn-xs removeBtn' roleId='" + data.id + "'><i class=' glyphicon glyphicon-remove'></i></button>";
-        var rowNumTd = "<td>" + index + "</td>";
+        var rowNumTd = "<td>" + (index + 1) + "</td>";
         var checkBoxTd = "<td><input class='itemClass' roleId='" + data.id + "'type='checkbox'></td>";
         var roleNameTd = "<td>" + data.name + "</td>";
         var btnTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>";
