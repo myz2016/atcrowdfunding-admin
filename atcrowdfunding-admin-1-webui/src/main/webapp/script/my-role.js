@@ -30,6 +30,7 @@ function getPageInfo() {
             "keyword": window.keyword || ""
         },
         "dataType": "json",
+        // 为了保证 getPageInfo() 函数能够在 Ajax 请求拿到响应后获取 PageInfo,需要改成同步请求
         "async": false
     });
     var result = resultEntity["responseJSON"];
