@@ -60,7 +60,8 @@
                 }
             });
         });
-
+        // 针对.removeBtn这样动态生成的元素对象使用on()函数方式绑定单击响应函数
+        // $("动态元素所依附的静态元素").on("事件类型","具体要绑定事件的动态元素的选择器", 事件响应函数);
         $("#roleTableBody").on("click", ".removeBtn", function () {
             window.roleIdArr = new Array();
             window.roleIdArr.push($(this).attr("roleId"));
