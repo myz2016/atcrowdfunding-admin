@@ -73,7 +73,7 @@
         });
 
         $("#addModalBtn").click(function () {
-            var roleName = $("#roleNameInput").val();
+            var roleName = $.trim($("#roleNameInput").val());
             if (roleName) {
                 $.ajax({
                     "url": "role/save/role.json",
@@ -90,6 +90,7 @@
                             layer.msg(response.message);
                         }
                         $("#addModal").modal("hide");
+                        $("#roleNameInput").val("");
                     },
                     "error": function (response) {
                         layer.msg(response.message);
