@@ -16,6 +16,10 @@
                 showPage();
             }
         });
+        $("#summaryBox").click(function () {
+            var checkedStatus = this.checked;
+            $(".itemClass").prop("checked", checkedStatus);
+        });
     });
 </script>
 <body>
@@ -47,7 +51,7 @@
                             <thead>
                             <tr >
                                 <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="30"><input id="summaryBox" type="checkbox"></th>
                                 <th>名称</th>
                                 <th width="100">操作</th>
                             </tr>

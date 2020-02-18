@@ -60,7 +60,7 @@ function generateTableBody(pageInfo) {
     }
     list.forEach(function (data, index) {
         var rowNumTd = "<td>" + index + "</td>";
-        var checkBoxTd = "<td><input roleId='" + data.id + "'type='checkbox'></td>";
+        var checkBoxTd = "<td><input class='itemClass' roleId='" + data.id + "'type='checkbox'></td>";
         var roleNameTd = "<td>" + data.name + "</td>";
         var btnTd = "<td>" + checkBtn + " " + pencilBtn + " " + removeBtn + "</td>";
         var tr = "<tr>" + rowNumTd + checkBoxTd + roleNameTd + btnTd + "</tr>";
