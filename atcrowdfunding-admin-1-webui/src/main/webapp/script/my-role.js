@@ -53,12 +53,12 @@ function generateTableBody(pageInfo) {
     var list = pageInfo.list;
     var checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>";
     var pencilBtn = "<button type='button' class='btn btn-primary btn-xs'><i class=' glyphicon glyphicon-pencil'></i></button>";
-    var removeBtn = "<button type='button' class='btn btn-danger btn-xs'><i class=' glyphicon glyphicon-remove'></i></button>";
     if (!list) {
         roleTableBody.append("<tr><td style='text-align: center' colspan='6'>抱歉！没有符合您要求的查询结果！</td></tr>");
         return;
     }
     list.forEach(function (data, index) {
+        var removeBtn = "<button type='button' class='btn btn-danger btn-xs removeBtn' roleId='" + data.id + "'><i class=' glyphicon glyphicon-remove'></i></button>";
         var rowNumTd = "<td>" + index + "</td>";
         var checkBoxTd = "<td><input class='itemClass' roleId='" + data.id + "'type='checkbox'></td>";
         var roleNameTd = "<td>" + data.name + "</td>";
@@ -91,4 +91,46 @@ function pageSelectCallback(pageIndex, jq) {
     window.pageNum = pageIndex + 1;
     showPage();
     return false;
+}
+
+function getRoleListByRoleIdArray(roleIdArray) {
+    var requestBody = JSON.stringify(roleIdArray);
+    var ajaxResult = $.ajax({
+        "url": "role/get/list/by/id/list.json",
+        "type": "post",
+        "data": requestBody,
+        "contentType": "application/json;charset=UTF-8",
+        "dataType": "json",
+        "async": false
+    });
+    var resultEntity = ajaxResult.responseJSON;
+    var result = resultEntity.result;
+    if (result === "SUCCESS") {
+        return resultEntity.data;
+    }
+    if (result === "FAILED") {
+        layer.msg(resultEntity.message);
+    }
+    return null;
+}
+
+function showRemoveConfirmModal() {
+    var roles = getRoleListByRoleIdArray(window.roleIdArr);
+    // 显示模态框
+    $("#confirmModal").modal("show");
+    var confirmModalTableBody = $("#confirmModalTableBody");
+    confirmModalTableBody.empty();
+    if (roles) {
+        roles.forEach(function (role, index) {
+            var numTd = "<td>" + index + "</td>";
+            var idTd = "<td>" + role.id + "</td>";
+            var nameTd = "<td>" + role.name + "</td>";
+            var tr = "<tr>" + numTd + idTd + nameTd + "</tr>";
+            confirmModalTableBody.append(tr);
+        });
+    } else {
+        var tr = "<tr><td colspan='3' style='text-align: center'>没有可显示的内容！</td></tr>"
+        confirmModalTableBody.append(tr);
+    }
+
 }

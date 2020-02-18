@@ -21,11 +21,50 @@
             $(".itemClass").prop("checked", checkedStatus);
         });
         $("#batchRemoveBtn").click(function () {
-            var checkedLength = $(".itemClass:checked").length;
-            if (checkedLength == 0) {
+            var checkedBox = $(".itemClass:checked");
+            var checkedLength = checkedBox.length;
+            if (checkedLength === 0) {
                 layer.msg("请勾选要删除的数据！");
                 return;
             }
+            window.roleIdArr = [];
+            checkedBox.each(function () {
+                var $this = $(this);
+                window.roleIdArr.push($this.attr("roleId"));
+            });
+            showRemoveConfirmModal();
+        });
+
+        $("#confirmModalBtn").click(function () {
+            var requestBody = JSON.stringify(window.roleIdArr);
+            $.ajax({
+                "url":"role/batch/remove.json",
+                "type":"post",
+                "data":requestBody,
+                "contentType":"application/json;charset=UTF-8",
+                "dataType":"json",
+                "success": function (response) {
+                    var result = response.result;
+                    if (result === "SUCCESS") {
+                        layer.msg("操作成功");
+                        showPage();
+                    }
+                    if (result === "ERROR") {
+                        layer.msg(response.message);
+                    }
+
+                    $("#confirmModal").modal("hide");
+                },
+                "error": function (response) {
+                    layer.msg(response.message);
+                }
+            });
+        });
+
+        $("#roleTableBody").on("click", ".removeBtn", function () {
+            window.roleIdArr = new Array();
+            window.roleIdArr.push($(this).attr("roleId"));
+            showRemoveConfirmModal();
         });
     });
 </script>
