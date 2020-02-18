@@ -79,5 +79,6 @@
         </div>
     </div>
 </div>
+<%@include file="/WEB-INF/include-modal-role-confirm.jsp"%>
 </body>
 </html>
