@@ -8,3 +8,35 @@ function showMyIcon(treeId, treeNode) {
     var newClass = treeNode.icon;
     $("#" + spanId).removeClass().addClass(newClass).css("background", "");
 }
+
+function initWholeTree() {
+    $.ajax({
+        "url":"menu/get/whole/tree.json",
+        "type":"post",
+        "dataType":"json",
+        "success": function (response) {
+            var result = response.result;
+            if (result === "SUCCESS") {
+                var setting = {
+                    view: {
+                        addDiyDom: showMyIcon
+                    },
+                    "data": {
+                        "key": {
+                            "url": "notExistsProperty" // 阻止点击节点后跳转
+                        }
+                    }
+
+                };
+                var zNodes = response.data;
+                $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+            }
+            if (result === "FAILED") {
+                layer.msg("加载数据失败，原因是：" + response.message);
+            }
+        },
+        "error": function (response) {
+            layer.msg("加载数据失败，原因是：" + response.message);
+        }
+    });
+}
