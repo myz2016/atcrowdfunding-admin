@@ -12,8 +12,9 @@ import java.util.Map;
  * @author mfh
  * @date 2019/12/15 18:10
  */
-public class CrowdFundingUtils {
+public final class CrowdFundingUtils {
 
+    private CrowdFundingUtils(){}
     /**
      * 检查是否为异步请求
      * @param request
