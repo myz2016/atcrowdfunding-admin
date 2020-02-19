@@ -15,18 +15,19 @@ import java.util.List;
  */
 @Service
 public class MenuServiceImpl implements MenuService {
-    private MenuMapper mapper;
+    private MenuMapper menuMapper;
 
     @Override
     public List<Menu> getAll() {
-        return this.mapper.selectByExample(new MenuExample());
+        return this.menuMapper.selectByExample(new MenuExample());
     }
-    public MenuMapper getMapper() {
-        return mapper;
+
+    public MenuMapper getMenuMapper() {
+        return menuMapper;
     }
 
     @Autowired
-    public void setMapper(MenuMapper mapper) {
-        this.mapper = mapper;
+    public void setMenuMapper(MenuMapper menuMapper) {
+        this.menuMapper = menuMapper;
     }
 }
