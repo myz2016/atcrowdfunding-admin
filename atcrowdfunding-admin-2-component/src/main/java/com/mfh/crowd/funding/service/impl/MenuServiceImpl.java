@@ -22,6 +22,11 @@ public class MenuServiceImpl implements MenuService {
         return this.menuMapper.selectByExample(new MenuExample());
     }
 
+    @Override
+    public void saveMenu(Menu menu) {
+        menuMapper.insert(menu);
+    }
+
     public MenuMapper getMenuMapper() {
         return menuMapper;
     }

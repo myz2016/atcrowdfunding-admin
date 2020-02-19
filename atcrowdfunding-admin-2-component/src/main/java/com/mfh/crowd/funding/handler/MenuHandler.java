@@ -38,6 +38,12 @@ public class MenuHandler {
         }
         return ResultEntity.successWithData(root);
     }
+
+    @RequestMapping("/menu/save")
+    public ResultEntity<String> saveMenu(Menu menu) {
+        menuService.saveMenu(menu);
+        return ResultEntity.successWithoutData();
+    }
     public MenuService getMenuService() {
         return menuService;
     }

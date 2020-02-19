@@ -129,3 +129,15 @@ function removeHoverDom(treeId, treeNode) {
     // 删除对应的元素
     $("#" + btnGrpSpanId).remove();
 }
+
+function showAddModal(_this) {
+    $("#menuAddModal").modal("show");
+    window.pid = _this.id;
+}
+
+function clean() {
+    $("#menuAddModal [name='name']").val("");
+    $("#menuAddModal [name='url']").val("");
+    /** 取消 radio 选中状态 */
+    $("#menuAddModal [name='icon']:checked").prop("checked", false);
+}

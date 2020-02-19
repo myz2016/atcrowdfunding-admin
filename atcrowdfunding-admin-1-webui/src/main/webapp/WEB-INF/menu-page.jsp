@@ -9,6 +9,37 @@
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
             initWholeTree();
+            $("#menuAddBtn").click(function () {
+                var menuName = $("#menuAddModal [name='name']").val();
+                var url = $("#menuAddModal [name='url']").val();
+                var ico = $("#menuAddModal [name='icon']:checked").val();
+                $.ajax({
+                    "url":"menu/save.json",
+                    "type":"post",
+                    "data":{
+                        "name":menuName,
+                        "url":url,
+                        "ico":ico,
+                        "pid":window.pid
+                    },
+                    "dataType":"json",
+                    "success":function (response) {
+                        var result = response.result;
+                        if (result === "SUCCESS") {
+                            layer.msg("添加成功！");
+                            initWholeTree();
+                        }
+                        if (result === "FAILED") {
+                            layer.msg(response.message);
+                        }
+                        clean();
+                        $("#menuAddModal").modal("hide");
+                    },
+                    "error":function (response) {
+                        layer.msg(response.message);
+                    }
+                });
+            });
         });
     </script>
 </head>
@@ -27,5 +58,6 @@
         </div>
     </div>
 </div>
+<%@include file="/WEB-INF/include-modal-menu-add.jsp"%>
 </body>
 </html>
