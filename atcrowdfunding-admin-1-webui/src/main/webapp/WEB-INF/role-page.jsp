@@ -1,139 +1,141 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="UTF-8">
-<%@ include file="/WEB-INF/include-head.jsp" %>
-<link rel="stylesheet" href="css/pagination.css">
-<script type="text/javascript" src="jquery/jquery.pagination.js"></script>
-<script type="text/javascript" src="script/my-role.js"></script>
-<script type="text/javascript" charset="utf-8">
-    $(function () {
-        initGlobalVariable();
-        showPage();
-        $("#search").click(function () {
-            var keyword = $.trim($("#keyword").val());
-            if (keyword) {
-                window.keyword = keyword;
-                showPage();
-            }
-        });
-        $("#summaryBox").click(function () {
-            var checkedStatus = this.checked;
-            $(".itemClass").prop("checked", checkedStatus);
-        });
-        $("#batchRemoveBtn").click(function () {
-            var checkedBox = $(".itemClass:checked");
-            var checkedLength = checkedBox.length;
-            if (checkedLength === 0) {
-                layer.msg("请勾选要删除的数据！");
-                return;
-            }
-            window.roleIdArr = [];
-            checkedBox.each(function () {
-                var $this = $(this);
-                window.roleIdArr.push($this.attr("roleId"));
-            });
-            showRemoveConfirmModal();
-        });
-
-        $("#confirmModalBtn").click(function () {
-            var requestBody = JSON.stringify(window.roleIdArr);
-            $.ajax({
-                "url":"role/batch/remove.json",
-                "type":"post",
-                "data":requestBody,
-                "contentType":"application/json;charset=UTF-8",
-                "dataType":"json",
-                "success": function (response) {
-                    var result = response.result;
-                    if (result === "SUCCESS") {
-                        layer.msg("操作成功");
-                        showPage();
-                    }
-                    if (result === "ERROR") {
-                        layer.msg(response.message);
-                    }
-
-                    $("#confirmModal").modal("hide");
-                },
-                "error": function (response) {
-                    layer.msg(response.message);
+<head>
+    <%@ include file="/WEB-INF/include-head.jsp" %>
+    <link rel="stylesheet" href="css/pagination.css">
+    <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="script/my-role.js"></script>
+    <script type="text/javascript" charset="utf-8">
+        $(function () {
+            initGlobalVariable();
+            showPage();
+            $("#search").click(function () {
+                var keyword = $.trim($("#keyword").val());
+                if (keyword) {
+                    window.keyword = keyword;
+                    showPage();
                 }
             });
-        });
-        // 针对.removeBtn这样动态生成的元素对象使用on()函数方式绑定单击响应函数
-        // $("动态元素所依附的静态元素").on("事件类型","具体要绑定事件的动态元素的选择器", 事件响应函数);
-        $("#roleTableBody").on("click", ".removeBtn", function () {
-            window.roleIdArr = new Array();
-            window.roleIdArr.push($(this).attr("roleId"));
-            showRemoveConfirmModal();
-        });
+            $("#summaryBox").click(function () {
+                var checkedStatus = this.checked;
+                $(".itemClass").prop("checked", checkedStatus);
+            });
+            $("#batchRemoveBtn").click(function () {
+                var checkedBox = $(".itemClass:checked");
+                var checkedLength = checkedBox.length;
+                if (checkedLength === 0) {
+                    layer.msg("请勾选要删除的数据！");
+                    return;
+                }
+                window.roleIdArr = [];
+                checkedBox.each(function () {
+                    var $this = $(this);
+                    window.roleIdArr.push($this.attr("roleId"));
+                });
+                showRemoveConfirmModal();
+            });
 
-        $("#addBtn").click(function () {
-            $("#addModal").modal("show");
-        });
-
-        $("#addModalBtn").click(function () {
-            var roleName = $.trim($("#roleNameInput").val());
-            if (roleName) {
+            $("#confirmModalBtn").click(function () {
+                var requestBody = JSON.stringify(window.roleIdArr);
                 $.ajax({
-                    "url": "role/save/role.json",
+                    "url": "role/batch/remove.json",
                     "type": "post",
-                    "data": {"roleName": $("#roleNameInput").val()},
+                    "data": requestBody,
+                    "contentType": "application/json;charset=UTF-8",
                     "dataType": "json",
                     "success": function (response) {
-                        if (response.result === "SUCCESS") {
-                            layer.msg("添加成功！");
-                            window.pageNum = 0x7fffffff;
+                        var result = response.result;
+                        if (result === "SUCCESS") {
+                            layer.msg("操作成功");
                             showPage();
                         }
-                        if (response.result === "FAILED") {
+                        if (result === "ERROR") {
                             layer.msg(response.message);
                         }
-                        $("#addModal").modal("hide");
-                        $("#roleNameInput").val("");
+
+                        $("#confirmModal").modal("hide");
                     },
                     "error": function (response) {
                         layer.msg(response.message);
                     }
                 });
-            } else {
-                layer.msg("请输入角色名称！");
-            }
+            });
+            // 针对.removeBtn这样动态生成的元素对象使用on()函数方式绑定单击响应函数
+            // $("动态元素所依附的静态元素").on("事件类型","具体要绑定事件的动态元素的选择器", 事件响应函数);
+            $("#roleTableBody").on("click", ".removeBtn", function () {
+                window.roleIdArr = new Array();
+                window.roleIdArr.push($(this).attr("roleId"));
+                showRemoveConfirmModal();
+            });
 
-        });
+            $("#addBtn").click(function () {
+                $("#addModal").modal("show");
+            });
 
-        $("#roleTableBody").on("click", ".editBtn", function () {
-            window.roleId = $(this).attr("roleId");
-            $("#editModal").modal("show");
-            $("#roleNameInputEdit").val($(this).parents("tr").children("td:eq(2)").text());
-        });
+            $("#addModalBtn").click(function () {
+                var roleName = $.trim($("#roleNameInput").val());
+                if (roleName) {
+                    $.ajax({
+                        "url": "role/save/role.json",
+                        "type": "post",
+                        "data": {"roleName": $("#roleNameInput").val()},
+                        "dataType": "json",
+                        "success": function (response) {
+                            if (response.result === "SUCCESS") {
+                                layer.msg("添加成功！");
+                                window.pageNum = 0x7fffffff;
+                                showPage();
+                            }
+                            if (response.result === "FAILED") {
+                                layer.msg(response.message);
+                            }
+                            $("#addModal").modal("hide");
+                            $("#roleNameInput").val("");
+                        },
+                        "error": function (response) {
+                            layer.msg(response.message);
+                        }
+                    });
+                } else {
+                    layer.msg("请输入角色名称！");
+                }
 
-        $("#editModalBtn").click(function () {
-            $.ajax({
-               "url":"role/update/role.json",
-               "type":"post",
-               "data":{
-                   "roleId":window.roleId,
-                   "roleName":$("#roleNameInputEdit").val()
-               },
-                "dataType":"json",
-                "success": function (response) {
-                    if (response.result === "SUCCESS") {
-                        layer.msg("更新成功！");
-                        showPage();
-                    }
-                    if (response.result === "FAILED") {
+            });
+
+            $("#roleTableBody").on("click", ".editBtn", function () {
+                window.roleId = $(this).attr("roleId");
+                $("#editModal").modal("show");
+                $("#roleNameInputEdit").val($(this).parents("tr").children("td:eq(2)").text());
+            });
+
+            $("#editModalBtn").click(function () {
+                $.ajax({
+                    "url": "role/update/role.json",
+                    "type": "post",
+                    "data": {
+                        "roleId": window.roleId,
+                        "roleName": $("#roleNameInputEdit").val()
+                    },
+                    "dataType": "json",
+                    "success": function (response) {
+                        if (response.result === "SUCCESS") {
+                            layer.msg("更新成功！");
+                            showPage();
+                        }
+                        if (response.result === "FAILED") {
+                            layer.msg(response.message);
+                        }
+                        $("#editModal").modal("hide");
+                    },
+                    "error": function (response) {
                         layer.msg(response.message);
                     }
-                    $("#editModal").modal("hide");
-                },
-                "error": function (response) {
-                    layer.msg(response.message);
-                }
+                });
             });
         });
-    });
-</script>
+    </script>
+</head>
 <body>
 <%@ include file="/WEB-INF/include-nav.jsp" %>
 <div class="container-fluid">
@@ -152,16 +154,22 @@
                                 <input id="keyword" class="form-control has-success" type="text" placeholder="请输入查询条件">
                             </div>
                         </div>
-                        <button id="search" type="button" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
+                        <button id="search" type="button" class="btn btn-warning"><i
+                                class="glyphicon glyphicon-search"></i> 查询
+                        </button>
                     </form>
-                    <button id="batchRemoveBtn" type="button" class="btn btn-danger" style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 批量删除</button>
-                    <button id="addBtn" type="button" class="btn btn-primary" style="float:right;"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <button id="batchRemoveBtn" type="button" class="btn btn-danger"
+                            style="float:right;margin-left:10px;"><i class=" glyphicon glyphicon-remove"></i> 批量删除
+                    </button>
+                    <button id="addBtn" type="button" class="btn btn-primary" style="float:right;"><i
+                            class="glyphicon glyphicon-plus"></i> 新增
+                    </button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
                         <table class="table  table-bordered">
                             <thead>
-                            <tr >
+                            <tr>
                                 <th width="30">#</th>
                                 <th width="30"><input id="summaryBox" type="checkbox"></th>
                                 <th>名称</th>
@@ -184,8 +192,8 @@
         </div>
     </div>
 </div>
-<%@include file="/WEB-INF/include-modal-role-confirm.jsp"%>
-<%@include file="/WEB-INF/include-moda-role-add.jsp"%>
-<%@include file="/WEB-INF/include-modal-role-edit.jsp"%>
+<%@include file="/WEB-INF/include-modal-role-confirm.jsp" %>
+<%@include file="/WEB-INF/include-moda-role-add.jsp" %>
+<%@include file="/WEB-INF/include-modal-role-edit.jsp" %>
 </body>
 </html>
