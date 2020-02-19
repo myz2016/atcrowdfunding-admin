@@ -16,8 +16,6 @@ function showPage() {
     if (pageInfo) {
         generateTableBody(pageInfo);
         initPagination(pageInfo);
-    } else {
-        layer.msg("无分页数据！");
     }
 
 }

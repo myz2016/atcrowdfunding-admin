@@ -57,11 +57,7 @@ public class RoleHandler {
 
     @RequestMapping("/role/update/role")
     public ResultEntity<String> updateRole(@RequestParam("roleId") Integer roleId, @RequestParam("roleName") String roleName) {
-        try {
-            roleService.updateRole(roleId, roleName);
-        } catch (Exception e) {
-            return ResultEntity.failed(null, e.getMessage());
-        }
+        roleService.updateRole(roleId, roleName);
         return ResultEntity.successWithoutData();
     }
     public RoleService getRoleService() {

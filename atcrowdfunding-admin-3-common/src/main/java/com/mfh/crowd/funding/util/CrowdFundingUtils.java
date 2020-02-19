@@ -2,6 +2,7 @@ package com.mfh.crowd.funding.util;
 
 import com.mfh.crowd.funding.constants.CrowdFundingConstant;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
@@ -13,6 +14,16 @@ import java.util.Map;
  */
 public class CrowdFundingUtils {
 
+    /**
+     * 检查是否为异步请求
+     * @param request
+     * @return 异步请求：true，同步请求：false
+     */
+    public static boolean checkAsyncRequest(HttpServletRequest request) {
+        String acceptHeader = request.getHeader("Accept");
+        String xRequestedWithHeader = request.getHeader("X-Requested-With");
+        return (stringEffective(acceptHeader) && acceptHeader.contains("application/json")) || (stringEffective(xRequestedWithHeader) && xRequestedWithHeader.contains("XMLHttpRequest"));
+    }
     /**
      * 判断 Map 是否有效
      * @param map   待验证的 Map
