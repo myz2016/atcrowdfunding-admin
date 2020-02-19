@@ -5,6 +5,7 @@
     <%@ include file="/WEB-INF/include-head.jsp" %>
     <link rel="stylesheet" href="ztree/zTreeStyle.css" type="text/css">
     <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="script/my-menu.js"></script>
     <script type="text/javascript" charset="utf-8">
         $(document).ready(function(){
             $.ajax({
@@ -14,7 +15,11 @@
                 "success": function (response) {
                     var result = response.result;
                     if (result === "SUCCESS") {
-                        var setting = {	};
+                        var setting = {
+                            view: {
+                                addDiyDom: showMyIcon
+                            }
+                        };
                         var zNodes = response.data;
                         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
                     }
