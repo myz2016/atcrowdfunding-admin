@@ -18,7 +18,13 @@
                         var setting = {
                             view: {
                                 addDiyDom: showMyIcon
+                            },
+                            "data": {
+                                "key": {
+                                    "url": "notExistsProperty" // 阻止点击节点后跳转
+                                }
                             }
+
                         };
                         var zNodes = response.data;
                         $.fn.zTree.init($("#treeDemo"), setting, zNodes);
