@@ -37,21 +37,13 @@ public class RoleHandler {
 
     @RequestMapping("/role/batch/remove")
     public ResultEntity<String> batchRemoveByRoleId(@RequestBody List<Integer> roleIdList) {
-        try {
-            roleService.batchRemoveByRoleId(roleIdList);
-        } catch (Exception e) {
-            return ResultEntity.failed(null, e.getMessage());
-        }
+        roleService.batchRemoveByRoleId(roleIdList);
         return ResultEntity.successWithoutData();
     }
 
     @RequestMapping("/role/save/role")
     public ResultEntity<String> saveRole(@RequestParam("roleName") String roleName) {
-        try {
-            roleService.saveRole(roleName);
-        } catch (Exception e) {
-            return ResultEntity.failed(null, e.getMessage());
-        }
+        roleService.saveRole(roleName);
         return ResultEntity.successWithoutData();
     }
 
