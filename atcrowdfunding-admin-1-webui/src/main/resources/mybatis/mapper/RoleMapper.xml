@@ -5,6 +5,30 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
   </resultMap>
+
+  <insert id="insertNewAdminRelationship">
+    insert into inner_admin_role (admin_id, role_id)
+    values
+      <foreach collection="roleIdList" item="roleId" separator=",">
+        (#{adminId},#{roleId})
+      </foreach>
+  </insert>
+  <delete id="deleteOldAdminRelationship">
+    delete from inner_admin_role where admin_id = #{adminId}
+  </delete>
+  <select id="selectUnAssignedRoleList" resultMap="BaseResultMap">
+    select role.id, role.name
+    from t_role role
+    where role.id not in (select iar.id
+                          from inner_admin_role iar
+                          where iar.admin_id = #{adminId});
+  </select>
+  <select id="selectAssignedRoleList" resultMap="BaseResultMap">
+    select role.id, role.name
+    from t_role role
+           left join inner_admin_role iar on role.id = iar.role_id
+    where iar.admin_id = #{adminId}
+  </select>
   <select id="selectForKeywordSearch" resultMap="BaseResultMap">
     select id, `name` from t_role where name like concat('%', #{keyword}, '%')
   </select>

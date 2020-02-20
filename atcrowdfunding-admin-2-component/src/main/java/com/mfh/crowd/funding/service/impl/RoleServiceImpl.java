@@ -6,6 +6,7 @@ import com.mfh.crowd.funding.entity.Role;
 import com.mfh.crowd.funding.entity.RoleExample;
 import com.mfh.crowd.funding.mapper.RoleMapper;
 import com.mfh.crowd.funding.service.api.RoleService;
+import com.mfh.crowd.funding.util.CrowdFundingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -61,5 +62,23 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void updateRole(Integer roleId, String roleName) {
         mapper.updateByPrimaryKey(new Role(roleId, roleName));
+    }
+
+    @Override
+    public List<Role> getAssignedRoleList(Integer adminId) {
+        return mapper.selectAssignedRoleList(adminId);
+    }
+
+    @Override
+    public List<Role> getUnAssignedRoleList(Integer adminId) {
+        return mapper.selectUnAssignedRoleList(adminId);
+    }
+
+    @Override
+    public void updateRelationship(List<Integer> roleIdList, Integer adminId) {
+        mapper.deleteOldAdminRelationship(adminId);
+        if (CrowdFundingUtils.collectionEffective(roleIdList)) {
+            mapper.insertNewAdminRelationship(roleIdList, adminId);
+        }
     }
 }

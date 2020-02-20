@@ -20,4 +20,19 @@ public interface RoleService {
 
     void updateRole(Integer roleId, String roleName);
 
+    /**
+     * 获取已分配的角色
+     * @param adminId
+     * @return
+     */
+    List<Role> getAssignedRoleList(Integer adminId);
+
+    /**
+     * 获取未分配的角色
+     * @param adminId
+     * @return
+     */
+    List<Role> getUnAssignedRoleList(Integer adminId);
+
+    void updateRelationship(List<Integer> roleIdList, Integer adminId);
 }
