@@ -135,6 +135,31 @@ function showAddModal(_this) {
     window.pid = _this.id;
 }
 
+function showEditModal(_this) {
+    $("#menuEditModal").modal("show");
+    window.menuId = _this.id;
+    $.ajax({
+        "url":"menu/get/" + window.menuId + ".json",
+        "type":"get",
+        "dataType":"json",
+        "success": function (response) {
+            var result = response.result;
+            if (result === "SUCCESS") {
+                var menu = response.data;
+                $("#menuEditModal [name='name']").val(menu.name);
+                $("#menuEditModal [name='url']").val(menu.url);
+                $("#menuEditModal [name='icon'][value='" + menu.icon + "']").prop("checked", true);
+            }
+            if (result === "FAILED") {
+                layer.msg(response.message);
+            }
+        },
+        "error": function () {
+            layer.msg(response.message);
+        }
+    });
+}
+
 function clean() {
     $("#menuAddModal [name='name']").val("");
     $("#menuAddModal [name='url']").val("");

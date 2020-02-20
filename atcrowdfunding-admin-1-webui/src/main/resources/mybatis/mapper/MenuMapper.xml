@@ -202,8 +202,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.mfh.crowd.funding.entity.Menu" >
     update t_menu
-    set pid = #{pid,jdbcType=INTEGER},
-      name = #{name,jdbcType=VARCHAR},
+    set name = #{name,jdbcType=VARCHAR},
       url = #{url,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}

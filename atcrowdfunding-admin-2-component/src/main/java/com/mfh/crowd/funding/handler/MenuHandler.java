@@ -4,6 +4,7 @@ import com.mfh.crowd.funding.entity.Menu;
 import com.mfh.crowd.funding.entity.ResultEntity;
 import com.mfh.crowd.funding.service.api.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,6 +43,18 @@ public class MenuHandler {
     @RequestMapping("/menu/save")
     public ResultEntity<String> saveMenu(Menu menu) {
         menuService.saveMenu(menu);
+        return ResultEntity.successWithoutData();
+    }
+
+    @RequestMapping("/menu/get/{menuId}")
+    public ResultEntity<Menu> getMenuById(@PathVariable Integer menuId) {
+        Menu menu = menuService.getMenuById(menuId);
+        return ResultEntity.successWithData(menu);
+    }
+
+    @RequestMapping("/menu/update")
+    public ResultEntity<String> updateMenu(Menu menu) {
+        menuService.updateMenu(menu);
         return ResultEntity.successWithoutData();
     }
     public MenuService getMenuService() {
