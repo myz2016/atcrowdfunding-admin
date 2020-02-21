@@ -54,12 +54,12 @@ function generateTableBody(pageInfo) {
     var roleTableBody = $("#roleTableBody");
     roleTableBody.empty();
     var list = pageInfo.list;
-    var checkBtn = "<button type='button' class='btn btn-success btn-xs'><i class=' glyphicon glyphicon-check'></i></button>";
     if (!list) {
         roleTableBody.append("<tr><td style='text-align: center' colspan='6'>抱歉！没有符合您要求的查询结果！</td></tr>");
         return;
     }
     list.forEach(function (data, index) {
+        var checkBtn = "<button type='button' roleId='" + data.id + "' class='btn btn-success btn-xs checkBtn'><i class=' glyphicon glyphicon-check'></i></button>";
         var pencilBtn = "<button type='button' roleId='" + data.id + "' class='btn btn-primary btn-xs editBtn'><i class=' glyphicon glyphicon-pencil'></i></button>";
         var removeBtn = "<button type='button' class='btn btn-danger btn-xs removeBtn' roleId='" + data.id + "'><i class=' glyphicon glyphicon-remove'></i></button>";
         var rowNumTd = "<td>" + (index + 1) + "</td>";

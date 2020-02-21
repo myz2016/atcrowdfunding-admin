@@ -7,6 +7,18 @@
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="category_id" property="categoryId" jdbcType="INTEGER" />
   </resultMap>
+  <delete id="deleteOldRelationship">
+    delete from inner_role_auth where role_id=#{roleId}
+  </delete>
+  <insert id="insertNewRelationship">
+    insert into inner_role_auth(role_id,auth_id)
+    values
+    <foreach collection="authIdList" item="authId" separator=",">(#{roleId},#{authId})</foreach>
+  </insert>
+
+  <select id="selectAssignedAuthList" resultType="int">
+    select auth_id from inner_role_auth where role_id = #{roleId}
+  </select>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
