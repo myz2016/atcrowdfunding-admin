@@ -11,7 +11,7 @@
         <property name="username" value="${jdbc.user}"/>
         <property name="password" value="${jdbc.password}"/>
         <property name="url" value="${jdbc.url}"/>
-        <property name="driverClassName" value="${jdbc.dirver}"/>
+        <property name="driverClassName" value="${jdbc.driver}"/>
     </bean>
     <!--配置SqlSessionFactoryBean-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
