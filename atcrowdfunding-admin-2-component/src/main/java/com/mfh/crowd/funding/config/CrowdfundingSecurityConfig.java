@@ -21,7 +21,10 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/index.html","/bootstrap/**","/css/**","/fonts/**","/img/**","/jquery/**","/layer/**","/script/**","/ztree/**")
             .permitAll()
             .anyRequest()
-            .authenticated();
+            .authenticated()
+            .and()
+            .formLogin()
+            .loginPage("/admin/to/login/page.html");
 
     }
 }
