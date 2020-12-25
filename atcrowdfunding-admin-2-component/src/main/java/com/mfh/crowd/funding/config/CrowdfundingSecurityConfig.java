@@ -18,7 +18,7 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity security) throws Exception {
         security
             .authorizeRequests()
-            .antMatchers("/index.html")
+            .antMatchers("/index.html","/bootstrap/**","/css/**","/fonts/**","/img/**","/jquery/**","/layer/**","/script/**","/ztree/**")
             .permitAll()
             .anyRequest()
             .authenticated();
