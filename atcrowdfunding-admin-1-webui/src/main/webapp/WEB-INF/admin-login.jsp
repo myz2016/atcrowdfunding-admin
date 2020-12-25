@@ -35,7 +35,7 @@
 
 <div class="container">
 
-    <form action="/admin/do/login.html" class="form-signin" role="form">
+    <form action="/admin/secruty/do/login.html" class="form-signin" role="form" method="post">
         <h2 class="form-signin-heading"><i class="glyphicon glyphicon-log-in"></i> 管理员登录</h2>
         <p>${requestScope.MESSAGE}</p>
         <div class="form-group has-success has-feedback">

@@ -1,6 +1,7 @@
 package com.mfh.crowd.funding.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -15,6 +16,14 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
+    protected void configure(AuthenticationManagerBuilder builder) throws Exception {
+        builder.inMemoryAuthentication()
+                .withUser("frank")
+                .password("123123")
+                .roles("king");
+    }
+
+    @Override
     protected void configure(HttpSecurity security) throws Exception {
         security
             .authorizeRequests()
@@ -25,7 +34,15 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .formLogin()
             .loginPage("/admin/to/login/page.html")
-            .permitAll();
+            .permitAll()
+            .loginProcessingUrl("/admin/secruty/do/login.html")
+            .permitAll()
+            .usernameParameter("loginAcct")
+            .passwordParameter("userPswd")
+            .defaultSuccessUrl("/admin/to/main/page.html")
+            .and()
+            .csrf()
+            .disable();
 
     }
 }
