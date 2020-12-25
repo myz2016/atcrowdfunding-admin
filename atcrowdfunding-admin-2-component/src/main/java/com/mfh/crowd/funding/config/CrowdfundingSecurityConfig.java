@@ -24,7 +24,8 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
             .authenticated()
             .and()
             .formLogin()
-            .loginPage("/admin/to/login/page.html");
+            .loginPage("/admin/to/login/page.html")
+            .permitAll();
 
     }
 }
