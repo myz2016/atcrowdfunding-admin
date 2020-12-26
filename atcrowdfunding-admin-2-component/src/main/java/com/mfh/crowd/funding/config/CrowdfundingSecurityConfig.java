@@ -41,6 +41,10 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
             .passwordParameter("userPswd")
             .defaultSuccessUrl("/admin/to/main/page.html")
             .and()
+            .logout()
+            .logoutUrl("/admin/secruty/do/logout.html")
+            .logoutSuccessUrl("/index.html")
+            .and()
             .csrf()
             .disable();
 

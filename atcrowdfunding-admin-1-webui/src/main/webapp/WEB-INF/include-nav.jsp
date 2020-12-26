@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="security"%>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -9,14 +10,14 @@
                 <li style="padding-top:8px;">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> ${sessionScope['LOGIN-ADMIN'].userName} <span class="caret"></span>
+                            <i class="glyphicon glyphicon-user"></i> <security:authentication property="name"/> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
                             <li><a href="#"><i class="glyphicon glyphicon-comment"></i> 消息</a></li>
                             <li class="divider"></li>
                             <!--页面上的标签，路径参考的是 base 标签，所以最前面不带斜杠-->
-                            <li><a href="admin/logout.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
+                            <li><a href="admin/secruty/do/logout.html"><i class="glyphicon glyphicon-off"></i> 退出系统</a></li>
                         </ul>
                     </div>
                 </li>
