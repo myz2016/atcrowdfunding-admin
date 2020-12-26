@@ -1,5 +1,6 @@
 package com.mfh.crowd.funding.service.impl;
 
+import com.mfh.crowd.funding.config.SecurityAdmin;
 import com.mfh.crowd.funding.entity.Admin;
 import com.mfh.crowd.funding.entity.AdminExample;
 import com.mfh.crowd.funding.entity.Auth;
@@ -11,7 +12,6 @@ import com.mfh.crowd.funding.util.CrowdFundingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -71,6 +71,6 @@ public class CrowdFundingUserDetailsService implements UserDetailsService {
         }
 
         // 返回 User 对象
-        return new User(userName, password, authorityList);
+        return new SecurityAdmin(admin, authorityList);
     }
 }
