@@ -22,5 +22,6 @@ public class CrowdFundingConstant {
     public static final Map<String, String> EXCEPTION_MESSAGE_MAP = new HashMap<String, String>(){{
         put("java.lang.ArithmeticException", "系统在进行数学运算时发生异常");
         put("java.lang.RuntimeException", "系统在运行时发生错误");
+        put("org.springframework.security.access.AccessDeniedException", "对不起，您没有访问该页面的权限");
     }};
 }

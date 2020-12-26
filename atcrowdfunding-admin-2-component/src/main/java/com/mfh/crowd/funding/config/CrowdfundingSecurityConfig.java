@@ -1,5 +1,6 @@
 package com.mfh.crowd.funding.config;
 
+import com.mfh.crowd.funding.exception.CrowdFundingAccessDeniedHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -46,6 +47,9 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
             .hasRole("PM - 项目经理")
             .anyRequest()
             .authenticated()
+            .and()
+            .exceptionHandling()
+            .accessDeniedHandler(new CrowdFundingAccessDeniedHandler())
             .and()
             .formLogin()
             .loginPage("/admin/to/login/page.html")
