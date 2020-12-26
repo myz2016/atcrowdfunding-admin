@@ -43,7 +43,6 @@ public class CrowdFundingUserDetailsService implements UserDetailsService {
             return null;
         }
         Admin admin = admins.get(0);
-        String password = admin.getUserPswd();
         List<GrantedAuthority> authorityList = new ArrayList<>();
 
         // 查询当前 Admin 对应的角色
