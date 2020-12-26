@@ -10,6 +10,7 @@ import com.mfh.crowd.funding.service.api.AdminService;
 import com.mfh.crowd.funding.util.CrowdFundingUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,9 @@ import java.util.Objects;
 @Service
 public class AdminServiceImpl implements AdminService {
     private AdminMapper mapper;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public List<Admin> selectAll() {
@@ -106,14 +110,17 @@ public class AdminServiceImpl implements AdminService {
     private void encrypt(Admin admin) {
         admin.setUserPswd(this.encrypt(admin.getUserPswd()));
     }
+
     /**
      * 加密
+     *
      * @param password 加密前的密码
      * @return 加密后的密码
      */
     private String encrypt(String password) {
-        return CrowdFundingUtils.md5(password);
+        return passwordEncoder.encode(password);
     }
+
     public AdminMapper getMapper() {
         return mapper;
     }
