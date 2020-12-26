@@ -42,6 +42,8 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .antMatchers("/index.html","/bootstrap/**","/css/**","/fonts/**","/img/**","/jquery/**","/layer/**","/script/**","/ztree/**")
             .permitAll()
+            .antMatchers("/admin/query/for/search.html")
+            .hasRole("PM - 项目经理")
             .anyRequest()
             .authenticated()
             .and()

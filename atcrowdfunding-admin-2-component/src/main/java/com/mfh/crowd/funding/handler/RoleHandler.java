@@ -5,6 +5,7 @@ import com.mfh.crowd.funding.entity.ResultEntity;
 import com.mfh.crowd.funding.entity.Role;
 import com.mfh.crowd.funding.service.api.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,9 @@ import java.util.List;
 public class RoleHandler {
     private RoleService roleService;
 
+    // SpEL 表达式
+    // 拥有角色查询的权限
+    @PreAuthorize("hasAuthority('role:get')")
     @RequestMapping("/role/search/by/keyword")
     public ResultEntity<PageInfo<Role>> search(
             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
