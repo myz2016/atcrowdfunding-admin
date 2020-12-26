@@ -24,7 +24,8 @@ public class CrowdfundingSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     /**
-     * Spring 在真正调用这个方法前会检查，IOC 容器中是否已经有了对应的 bean，如果有，则不会真正调用这个方法，而是直接把 IOC 容器中的 bean 返回
+     * Spring 在真正调用这个方法前会检查，IOC 容器中是否已经有了对应的 bean，如果有，则不会真正调用这个方法，而是直接把 IOC 容器中的 bean 返回。
+     * 没有使用 @Autowired 的方式注入 BCryptPasswordEncoder，而是采用了 @Bean 的方式，效果是一样的
      * @return
      */
     @Bean
