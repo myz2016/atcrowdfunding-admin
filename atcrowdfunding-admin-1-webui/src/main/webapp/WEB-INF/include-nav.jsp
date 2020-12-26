@@ -10,7 +10,9 @@
                 <li style="padding-top:8px;">
                     <div class="btn-group">
                         <button type="button" class="btn btn-default btn-success dropdown-toggle" data-toggle="dropdown">
-                            <i class="glyphicon glyphicon-user"></i> <security:authentication property="name"/> <span class="caret"></span>
+                            <!-- 通过访问当前对象的 principal.originalAdmin.userName 属性可以获取用户的昵称 -->
+                            <!--principal 是 SpringSecurity 中的名字，不是自定义的。originalAdmin 对应的是 com.mfh.crowd.funding.config.SecurityAdmin.originalAdmin，userName 是它的属性名-->
+                            <i class="glyphicon glyphicon-user"></i> <security:authentication property="principal.originalAdmin.userName"/> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#"><i class="glyphicon glyphicon-cog"></i> 个人设置</a></li>
