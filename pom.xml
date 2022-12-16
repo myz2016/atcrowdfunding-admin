@@ -16,7 +16,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <atguigu.spring.version>4.3.20.RELEASE</atguigu.spring.version>
+        <atguigu.spring.version>5.2.20.RELEASE</atguigu.spring.version>
         <atguigu.spring.security.security.version>4.2.10.RELEASE</atguigu.spring.security.security.version>
     </properties>
 
